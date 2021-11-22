@@ -51,7 +51,7 @@ describe('Users tests', () => {
         userTest.description = "Uma descrição atualizada"
 
         const response = await request(server)
-        .post(`/user/user/${userTest._id}`)
+        .put(`/user/${userTest._id}`)
         .send(userTest)
         
         expect(response.status).toBe(200)
@@ -59,16 +59,15 @@ describe('Users tests', () => {
         expect(response.body.description).toBe("Uma descrição atualizada")
     })
 
-//     it('returns a specific user', async () => {
-//         const response = await request(server)
-//             .get(`/user/?id"=${userTest._id}"`)
-//             .send({
-//             })
-//             console.log(response.body)
-//         expect(response.status).toBe(200)
-//         //expect(response.body.user.name).toBe("name test")
+    it('returns a specific user', async () => {
+        const response = await request(server)
+            .get(`/user/${userTest._id}`)
+            .send()
+            console.log(response.body)
+        expect(response.status).toBe(200)
+        expect(response.body).toBe(userTest)
         
-//     })
+    })
 
 //     it('should return a list of users', async () => {
 //         const response = await request(server)

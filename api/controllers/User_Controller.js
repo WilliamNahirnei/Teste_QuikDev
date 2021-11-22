@@ -73,7 +73,7 @@ module.exports = app => {
                         name: reqData.name,
                         username: reqData.username,
                         birtdate: reqData.birtdate,
-                        address: reqData.birtdate,
+                        address: reqData.address,
                         addressNumber: reqData.addressNumber,
                         primayPhone: reqData.primayPhone,
                         description: reqData.description
