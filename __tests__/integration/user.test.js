@@ -10,32 +10,31 @@ let userTest = {
     "primayPhone": "42988832772",
     "description": "asdasd"
 }
-const userList=[]
+const userList = []
 
-async function limpraBD(){
-const response = await request(server)
+async function clearDatabase() {
+    const response = await request(server)
         .get('/user')
         .send()
     response.body.forEach(async element => {
         await request(server)
-                .delete(`/user/${element._id}`)
-                .send(userTest)
-                
-    });    
-}
+            .delete(`/user/${element._id}`)
+            .send(userTest)
 
+    });
+}
 
 describe('Users tests', () => {
 
     it('must return a new user', async () => {
-        await limpraBD()
+        clearDatabase()
 
         const response = await request(server)
-        .post('/user')
-        .send(userTest)
-        
+            .post('/user')
+            .send(userTest)
+
         expect(response.status).toBe(201)
-        expect(response.body.name).toBe("name teste")    
+        expect(response.body.name).toBe("name teste")
         expect(response.body.username).toBe("usernameTeste")
         expect(response.body.birtdate).toBe("27/11/2929")
         expect(response.body.address).toBe("rua yz")
@@ -52,9 +51,9 @@ describe('Users tests', () => {
         userTest.description = "Uma descrição atualizada"
 
         const response = await request(server)
-        .put(`/user/${userTest._id}`)
-        .send(userTest)
-        
+            .put(`/user/${userTest._id}`)
+            .send(userTest)
+
         expect(response.status).toBe(200)
         expect(response.body.name).toBe("Nome de teste atualizado")
         expect(response.body.description).toBe("Uma descrição atualizada")
@@ -67,7 +66,7 @@ describe('Users tests', () => {
             .send()
         expect(response.status).toBe(200)
         expect(response.body).toEqual(userTest)
-        
+
     })
 
     it('returns all users', async () => {
@@ -76,7 +75,7 @@ describe('Users tests', () => {
             .send()
         expect(response.status).toBe(200)
         expect(response.body).toEqual(userList)
-        
+
     })
 
 
@@ -87,7 +86,7 @@ describe('Users tests', () => {
 
         expect(response.status).toBe(200)
         expect(response.body).toEqual(userTest)
-        
+
     })
 
 })
