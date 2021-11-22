@@ -49,7 +49,7 @@ module.exports = app => {
                     addressNumber: reqData.addressNumber,
                     primayPhone: reqData.primayPhone,
                     description: reqData.description,
-                    createdAt: ""
+                    createdAt: await new Date().toString()
                 })
                 await newUser.save();
                 res.status(201).json(newUser).send()
