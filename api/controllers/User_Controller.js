@@ -45,7 +45,7 @@ module.exports = app => {
                     name: reqData.name,
                     username: reqData.username,
                     birtdate: reqData.birtdate,
-                    address: reqData.birtdate,
+                    address: reqData.address,
                     addressNumber: reqData.addressNumber,
                     primayPhone: reqData.primayPhone,
                     description: reqData.description,
@@ -98,6 +98,7 @@ module.exports = app => {
     const deleteUser = async (req, res) => {
         try {
             const idUser = req.params.id
+            console.log(idUser)
             if (mongoose.Types.ObjectId.isValid(idUser)) {
                 const User = mongoose.model("users", UserSchema)
                 const wantedUser = await User.findByIdAndDelete(idUser)

@@ -15,6 +15,6 @@ consign()
 
 
 
-app.listen(port, () => {
+module.exports = app.listen(port, () => {
   console.log(`Servidor online em: http://localhost:${port}`)
 })
