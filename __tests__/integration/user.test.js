@@ -1,4 +1,4 @@
-const server = require('../index')
+const server = require('../../index')
 const request = require('supertest')
 
 let userTest = {
@@ -10,6 +10,7 @@ let userTest = {
     "primayPhone": "42988832772",
     "description": "asdasd"
 }
+const userList=[]
 
 async function limpraBD(){
 const response = await request(server)
@@ -57,27 +58,36 @@ describe('Users tests', () => {
         expect(response.status).toBe(200)
         expect(response.body.name).toBe("Nome de teste atualizado")
         expect(response.body.description).toBe("Uma descrição atualizada")
+        userList.push(response.body)
     })
 
     it('returns a specific user', async () => {
         const response = await request(server)
             .get(`/user/${userTest._id}`)
             .send()
-            console.log(response.body)
         expect(response.status).toBe(200)
-        expect(response.body).toBe(userTest)
+        expect(response.body).toEqual(userTest)
         
     })
 
-//     it('should return a list of users', async () => {
-//         const response = await request(server)
-//             .get('/user')
-//             .send({
-//             })
-
-//         expect(response.status).toBe(200)
-//         //expect(response.body.user.name).toBe("name test")
+    it('returns all users', async () => {
+        const response = await request(server)
+            .get(`/user`)
+            .send()
+        expect(response.status).toBe(200)
+        expect(response.body).toEqual(userList)
         
-//     })
+    })
+
+
+    it('should return a list of users', async () => {
+        const response = await request(server)
+            .delete(`/user/${userTest._id}`)
+            .send()
+
+        expect(response.status).toBe(200)
+        expect(response.body).toEqual(userTest)
+        
+    })
 
 })
