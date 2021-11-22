@@ -52,7 +52,7 @@ module.exports = app => {
                     createdAt: ""
                 })
                 await newUser.save();
-                res.status(200).json(newUser).send()
+                res.status(201).json(newUser).send()
             }
             else
                 res.status(400).send('BAD PARAMS')
@@ -69,7 +69,7 @@ module.exports = app => {
             if (mongoose.Types.ObjectId.isValid(idUser)) {
                 if (exist(reqData)) {
                     const User = mongoose.model("users", UserSchema)
-                    const wantedUser = await User.findByIdAndUpdate(idUser, {
+                    let wantedUser = await User.findByIdAndUpdate(idUser, {
                         name: reqData.name,
                         username: reqData.username,
                         birtdate: reqData.birtdate,
@@ -78,6 +78,7 @@ module.exports = app => {
                         primayPhone: reqData.primayPhone,
                         description: reqData.description
                     })
+                    wantedUser = await User.findById(idUser)
                     if(wantedUser)
                         res.status(200).json(wantedUser).send()
                     else
